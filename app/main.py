@@ -165,6 +165,19 @@ async def get_products():
     """Get all products - main e-commerce endpoint"""
     logger.info("Fetching all products")
     
+    # BUG INTRODUCED IN THIS COMMIT - Issue #42
+    # Developer accidentally added database validation that always fails
+    # This simulates a real production bug from a code change
+    db_connection_status = None  # Bug: This should be initialized to True
+    
+    if not db_connection_status:
+        logger.error("CRITICAL: Database connection validation failed! db_connection_status is None")
+        logger.error("This bug was introduced in commit - check git history for recent changes")
+        raise HTTPException(
+            status_code=500,
+            detail="Internal Server Error: Database connection validation failed"
+        )
+    
     # Simulate bug: 500 error when BUG_ENABLED is true
     if BUG_ENABLED:
         logger.error("CRITICAL: Database connection failed! BUG_ENABLED=true causing 500 error")
