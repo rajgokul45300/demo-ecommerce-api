@@ -1,0 +1,6 @@
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+python-multipart==0.0.6
+opencensus-ext-azure==1.1.13
+applicationinsights==0.11.10
+
